@@ -2,10 +2,12 @@
 
 namespace Bazinga\Bundle\PropelEventDispatcherBundle\DependencyInjection\CompilerPass;
 
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author William Durand <william.durand1@gmail.com>
@@ -38,13 +40,15 @@ class RegisterEventListenersPass implements CompilerPassInterface
 
                 $this
                     ->getDispatcherForClass($container, $attrs['class'])
-                    ->addMethodCall('addListenerService', array(
+                    ->addMethodCall('addListener', array(
                         $event['event'],
-                        array($id, $event['method']),
+                        array(new ServiceClosureArgument(new Reference($id)), $event['method']),
                         $priority,
                     ));
             }
         }
+
+        $extractingDispatcher = new ExtractingEventDispatcher();
 
         foreach ($container->findTaggedServiceIds('propel.event_subscriber') as $id => $attributes) {
             // We must assume that the class value has been correctly filled, even if the service is created by a factory
@@ -61,8 +65,15 @@ class RegisterEventListenersPass implements CompilerPassInterface
                     throw new \InvalidArgumentException(sprintf('Service "%s" must define the "class" attribute on "propel.event_subscriber" tags.', $id));
                 }
 
-                $this->getDispatcherForClass($container, $attrs['class'])
-                    ->addMethodCall('addSubscriberService', array($id, $class));
+                ExtractingEventDispatcher::$subscriber = $class;
+                $extractingDispatcher->addSubscriber($extractingDispatcher);
+                foreach ($extractingDispatcher->listeners as $args) {
+                    $args[1] = array(new ServiceClosureArgument(new Reference($id)), $args[1]);
+
+                    $this->getDispatcherForClass($container, $attrs['class'])
+                        ->addMethodCall('addListener', $args);
+                }
+                $extractingDispatcher->listeners = array();
             }
         }
 
@@ -114,5 +125,27 @@ class RegisterEventListenersPass implements CompilerPassInterface
     private function getServiceIdForClass($class)
     {
         return 'bazinga.propel_event_dispatcher.dispatcher.' . strtolower(str_replace('\\', '_', $class));
+    }
+}
+
+/**
+ * @internal
+ */
+class ExtractingEventDispatcher extends EventDispatcher implements EventSubscriberInterface
+{
+    public $listeners = array();
+
+    public static $subscriber;
+
+    public function addListener($eventName, $listener, $priority = 0)
+    {
+        $this->listeners[] = array($eventName, $listener[1], $priority);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        $callback = array(self::$subscriber, 'getSubscribedEvents');
+
+        return $callback();
     }
 }
