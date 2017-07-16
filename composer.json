@@ -1,9 +1,9 @@
 {
-    "name": "marcj/propel-eventdispatcher-bundle",
-    "description": "Integrates the Propel EventDispatcherBehavior into Symfony2.",
+    "name": "gharlan/propel-event-dispatcher-bundle",
+    "description": "Integrates the Propel EventDispatcherBehavior into Symfony.",
     "license": "MIT",
     "require": {
-        "marcj/propel-eventdispatcher-behavior": "^1.0"
+        "gharlan/propel-event-dispatcher-behavior": "^1.1"
     },
     "require-dev": {
         "symfony/framework-bundle": "^3.3",
@@ -16,9 +16,8 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Bazinga\\Bundle\\PropelEventDispatcherBundle": "" }
+        "psr-4": { "Bazinga\\Bundle\\PropelEventDispatcherBundle\\": "" }
     },
-    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
