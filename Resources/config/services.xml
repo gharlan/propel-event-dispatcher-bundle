@@ -10,7 +10,7 @@
     </parameters>
 
     <services>
-        <service id="bazinga.propel_event_dispatcher.injector" class="%bazinga.propel_event_dispatcher.injector.class%">
+        <service id="bazinga.propel_event_dispatcher.injector" class="%bazinga.propel_event_dispatcher.injector.class%" public="true">
             <argument type="service" id="service_container" />
             <argument>%bazinga.propel_event_dispatcher.registered_classes%</argument>
             <argument type="service" id="logger" on-invalid="ignore" />
