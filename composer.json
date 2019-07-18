@@ -3,11 +3,11 @@
     "description": "Integrates the Propel EventDispatcherBehavior into Symfony.",
     "license": "MIT",
     "require": {
-        "gharlan/propel-event-dispatcher-behavior": "^1.1"
+        "gharlan/propel-event-dispatcher-behavior": "^2.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "^3.3 || ^4.0",
-        "symfony/yaml": "^3.3 || ^4.0"
+        "symfony/framework-bundle": "^4.3",
+        "symfony/yaml": "^4.3"
     },
     "authors": [
         {
@@ -20,7 +20,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

@@ -28,6 +28,6 @@ class MyObject extends BaseMyObject implements \EventDispatcherAwareModelInterfa
 
     public function preSave()
     {
-        self::$eventDispatcher->dispatch('propel.pre_save', new GenericEvent($this));
+        self::$eventDispatcher->dispatch(new GenericEvent($this), 'propel.pre_save');
     }
 }

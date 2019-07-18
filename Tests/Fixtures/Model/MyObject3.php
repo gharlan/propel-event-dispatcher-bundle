@@ -11,11 +11,11 @@ class MyObject3 extends BaseMyObject3
 
     public function preSave()
     {
-        self::getEventDispatcher()->dispatch('propel.pre_save', new GenericEvent($this));
+        self::getEventDispatcher()->dispatch(new GenericEvent($this), 'propel.pre_save');
     }
 
     public function preInsert()
     {
-        self::getEventDispatcher()->dispatch('propel.pre_insert', new GenericEvent($this));
+        self::getEventDispatcher()->dispatch(new GenericEvent($this), 'propel.pre_insert');
     }
 }
