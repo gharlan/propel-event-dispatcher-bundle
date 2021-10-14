@@ -73,7 +73,7 @@ class DispatcherInjector
     private function log($message)
     {
         if (null !== $this->logger) {
-            $this->logger->warn($message);
+            $this->logger->warning($message);
         }
     }
 }
