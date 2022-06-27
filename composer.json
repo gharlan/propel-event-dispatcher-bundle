@@ -7,8 +7,8 @@
         "gharlan/propel-event-dispatcher-behavior": "^3.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "^5.3",
-        "symfony/yaml": "^5.3"
+        "symfony/framework-bundle": "^5.3|^6.0",
+        "symfony/yaml": "^5.3|^6.0"
     },
     "authors": [
         {
