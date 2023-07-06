@@ -19,7 +19,7 @@ class RegisterEventListenersPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         foreach ($container->findTaggedServiceIds('propel.event_listener') as $id => $attributes) {
             foreach ($attributes as $attrs) {

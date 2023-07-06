@@ -47,7 +47,7 @@ class LazyEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function addListener(string $eventName, callable $listener, int $priority = 0)
+    public function addListener(string $eventName, callable $listener, int $priority = 0): void
     {
         $this->getEventDispatcher()->addListener($eventName, $listener, $priority);
     }
@@ -55,7 +55,7 @@ class LazyEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function addSubscriber(EventSubscriberInterface $subscriber)
+    public function addSubscriber(EventSubscriberInterface $subscriber): void
     {
         $this->getEventDispatcher()->addSubscriber($subscriber);
     }
@@ -63,7 +63,7 @@ class LazyEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function removeListener(string $eventName, callable $listener)
+    public function removeListener(string $eventName, callable $listener): void
     {
         $this->getEventDispatcher()->removeListener($eventName, $listener);
     }
@@ -71,7 +71,7 @@ class LazyEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSubscriber(EventSubscriberInterface $subscriber)
+    public function removeSubscriber(EventSubscriberInterface $subscriber): void
     {
         $this->getEventDispatcher()->removeSubscriber($subscriber);
     }

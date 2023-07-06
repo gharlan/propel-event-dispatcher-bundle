@@ -14,7 +14,7 @@ class BazingaPropelEventDispatcherBundle extends Bundle
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
@@ -24,7 +24,7 @@ class BazingaPropelEventDispatcherBundle extends Bundle
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         $this->container->get('bazinga.propel_event_dispatcher.injector')->initializeModels();
     }
