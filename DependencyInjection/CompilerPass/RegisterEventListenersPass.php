@@ -138,7 +138,7 @@ class ExtractingEventDispatcher extends EventDispatcher implements EventSubscrib
 
     public static $subscriber;
 
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener($eventName, $listener, $priority = 0): void
     {
         $this->listeners[] = array($eventName, $listener[1], $priority);
     }
