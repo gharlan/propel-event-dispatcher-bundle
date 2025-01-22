@@ -16,7 +16,7 @@ class DispatcherInjector
 
     private $logger;
 
-    public function __construct(ContainerInterface $container, array $classes, LoggerInterface $logger = null)
+    public function __construct(ContainerInterface $container, array $classes, ?LoggerInterface $logger = null)
     {
         $this->classes   = $classes;
         $this->container = $container;
